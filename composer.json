@@ -11,7 +11,8 @@
         "phpseclib/phpseclib": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "laravel/laravel": "^5.8"
     },
     "license": "MIT",
     "autoload": {
@@ -20,6 +21,11 @@
         },
         "files": [
             "src/Tools.php"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
         ]
     },
     "extra": {

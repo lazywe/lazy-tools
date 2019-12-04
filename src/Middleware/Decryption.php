@@ -23,16 +23,20 @@ class Decryption
         if (config('lazy-tools.cipher') === false) {
             return $next($request);
         }
-
         // 开起了数据加密
-        $d = $request->input('d');
         $e = $request->input('e');
         if (empty($d) || empty($e)) {
             return json(Code::ERROR, 'request fail');
         }
-        $key = app(Rsa::class)->decrypt($d);
-        $data = app(Aes::class)->decrypt($e, $key);
-        $arr = json_decode($data, true);
+        $result = app(Aes::class)->decrypt(
+            $e,
+            config('lazy-tools.client_aes_key')
+        );
+        // 解密失败
+        if (!$result) {
+            return json(Code::ERROR, 'request fail');
+        }
+        $arr = json_decode($result, true);
         // 将解密的数据设置成request params 兼容已有程序
         if (!empty($arr)) {
             foreach ($arr as $k => $v) {

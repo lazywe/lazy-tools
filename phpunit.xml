@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+    <php>
+        <const name="PHPUNIT_RUNNING" value="true" />
+        <env name="AES_KEY" value="E10ADC3949BA59ABBE56E057F20F883E" />
+        <env name="CLIENT_AES_KEY" value="F59BD65F7EDAFB087A81D4DCA06C4910" />
+        <env name="ORIGINAL_DEBUG" value="false" />
+        <env name="RSA_PUBLIC_KEY_PATH" value="./tests/files/rsa_public_key.pem" />
+        <env name="RSA_PRIVATE_KEY_PATH" value="./tests/files/rsa_private_key.pem" />
+    </php>
+</phpunit>

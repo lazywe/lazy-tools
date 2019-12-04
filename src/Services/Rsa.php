@@ -10,13 +10,18 @@ class Rsa
      * 加密
      *
      * @param string $data
+     * @param string $publicKeyPath 公钥路径
+     *
      * @return void
      */
-    public function encrypt($data = '')
+    public function encrypt($data = '', $publicKeyPath = "")
     {
-        $rsa = app(PhpseclibRSA::class);
+        if (empty($data) || !file_exists($publicKeyPath)) {
+            return false;
+        }
+        $rsa = new PhpseclibRSA();
         $rsa->setEncryptionMode(PhpseclibRSA::ENCRYPTION_PKCS1);
-        $rsa->loadKey(file_get_contents(config('lazy-tools.rsa_public_key_path')));
+        $rsa->loadKey(file_get_contents($publicKeyPath));
         return bin2hex($rsa->encrypt($data));
     }
 
@@ -24,13 +29,18 @@ class Rsa
      * 解密
      *
      * @param string $data
+     * @param string $privateKeyPath 私钥路径
+     *
      * @return void
      */
-    public function decrypt($data = '')
+    public function decrypt($data = '', $privateKeyPath = "")
     {
-        $rsa = app(PhpseclibRSA::class);
+        if (empty($data) || !file_exists($privateKeyPath)) {
+            return false;
+        }
+        $rsa = new PhpseclibRSA();
         $rsa->setEncryptionMode(PhpseclibRSA::ENCRYPTION_PKCS1);
-        $rsa->loadKey(file_get_contents(config('lazy-tools.rsa_private_key_path')));
+        $rsa->loadKey(file_get_contents($privateKeyPath));
         return $rsa->decrypt(hex2bin($data));
     }
 }

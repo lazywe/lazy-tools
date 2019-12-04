@@ -1,7 +1,7 @@
 <?php
 
-use Lazy\Interaction\Services\Rsa;
-use Lazy\Interaction\Services\Aes;
+use Lazy\Tools\Services\Rsa;
+use Lazy\Tools\Services\Aes;
 
 /**
  * Json返回
@@ -24,8 +24,14 @@ function json($status = 200, $msg = "", $data = [])
         return response()->json($responseData);
     }
     // 开启了加密
-    $d = app(Rsa::class)->encrypt(config('lazy-tools.aes_key'));
-    $e = app(Aes::class)->encrypt(json_encode($responseData));
+    $d = app(Rsa::class)->encrypt(
+        config('lazy-tools.aes_key'),
+        config('lazy-tools.rsa_public_key_path')
+    );
+    $e = app(Aes::class)->encrypt(
+        json_encode($responseData),
+        config('lazy-tools.aes_key')
+    );
     $res = [
         'd' => $d,
         'e' => $e
