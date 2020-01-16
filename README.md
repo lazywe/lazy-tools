@@ -3,6 +3,7 @@
 - 基于laravel的工具脚手架，支持数据Rsa Aes双重加密
 - 常用函数
 - 密文模式
+- [![travis](https://api.travis-ci.com/lazywe/lazy-tools.svg?token=8wKKpjrd41uzSUZMSZoy&branch=master)](https://travis-ci.com/lazywe/lazy-tools)
 
 # Requirement
 - php >= 5.3
